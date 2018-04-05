@@ -50,11 +50,10 @@ clauses
         !.
     del_spaces(_, "").
     run() :-
-        write("Write a string:"),
+        Text = file::readString("input.txt"),
         nl,
-        A = readLine(),
-        del_spaces(A, O),
-        write(O),
+        del_spaces(Text, O),
+        file::writeString("output.txt", O),
         fail
         or
         succeed.  % place your own code here
