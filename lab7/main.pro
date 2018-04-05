@@ -4,20 +4,42 @@ implement main
     open core, console, string
 
 class predicates
-
+    sign : (char) determ.
     del_spaces : (string, string [out]).
 
 clauses
 
-    del_spaces(A, S) :-
-        length(A) = 1,
-        S = A,
+    sign(A) :-
+        A = '.'
+        or
+        A = ','
+        or
+        A = ';'
+        or
+        A = ':'
+        or
+        A = '?'
+        or
+        A = '!'
+        or
+        A = '-',
         !.
+    sign(_) :-
+        fail.
+
     del_spaces(A, S) :-
         frontChar(A, C1, B),
         frontChar(B, C2, _),
         C1 = ' ',
         C2 = ' ',
+        del_spaces(B, D),
+        S = D,
+        !.
+    del_spaces(A, S) :-
+        frontChar(A, C1, B),
+        frontChar(B, C2, _),
+        C1 = ' ',
+        sign(C2),
         del_spaces(B, D),
         S = D,
         !.
